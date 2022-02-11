@@ -1,5 +1,7 @@
 package expr;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         Variable x = new Variable("X", false);
@@ -28,6 +30,8 @@ public class Main {
 
         Negation e8 = new Negation(z);
         Conjuction e9 = new Conjuction(e7, e8);
+
+        System.out.println("variables: " + Arrays.asList(e9.getVariables()));
 
         return e9.evaluate();
     }

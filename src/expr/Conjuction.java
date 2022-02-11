@@ -31,7 +31,7 @@ public class Conjuction implements Expr{
         //записываем в ответ все переменные из e2, которых нет в e1
         for(Variable variable: e2v) {
             boolean contains = false;
-            for(Variable variable1: result) {
+            for(Variable variable1: e1v) {
                 if(variable1.getName().equals(variable.getName())) {
                     contains = true;
                 }
@@ -39,16 +39,20 @@ public class Conjuction implements Expr{
 
             if(!contains) {
                 result[i] = variable;
+                i++;
             }
         }
 
         //обрезаем пустые значения
-        Variable[] answer = new Variable[i + 1];
+        Variable[] answer = new Variable[i];
         i = 0;
+
         for(Variable variable: result) {
+            if(variable == null) continue;
             answer[i] = variable;
+            i++;
         }
 
-        return e1.getVariables();
+        return answer;
     }
 }

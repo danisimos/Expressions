@@ -26,4 +26,9 @@ public class Variable implements Expr{
     public Variable[] getVariables() {
         return new Variable[]{this};
     }
+
+    @Override
+    public String toString() {
+        return "name: " + name + ", variable: " + variable;
+    }
 }
