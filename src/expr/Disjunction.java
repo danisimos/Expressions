@@ -57,4 +57,16 @@ public class Disjunction implements Expr{
 
         return answer;
     }
+
+    @Override
+    public Expr unitPropagate(Variable x, boolean var) {
+        e1.unitPropagate(x, var);
+        e2.unitPropagate(x, var);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + e1 + " ∨ " + e2 + ")";
+    }
 }

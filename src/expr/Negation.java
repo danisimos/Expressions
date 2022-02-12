@@ -16,4 +16,16 @@ public class Negation implements Expr{
     public Variable[] getVariables() {
         return e1.getVariables();
     }
+
+    @Override
+    public Expr unitPropagate(Variable x, boolean var) {
+        e1.unitPropagate(x, var);
+
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "¬" + e1;
+    }
 }

@@ -8,16 +8,30 @@ public class Main {
         Variable y = new Variable("Y", false);
         Variable z   = new Variable("Z", false);
 
-        System.out.println(getAnswer(x, y, z));
+        Expr example1 = exprExample1(x, y, z);
 
-        x.setVariable(false);
-        y.setVariable(true);
-        z.setVariable(true);
+        System.out.println("Example 1: ");
+        System.out.println("variables: " + Arrays.toString(example1.getVariables()));
+        System.out.println("variable x: false");
+        System.out.println("variable y: false");
+        System.out.println("variable z: false");
+        System.out.println(example1);
+        System.out.println("answer: " + example1.evaluate());
+        System.out.println();
 
-        System.out.println(getAnswer(x, y, z));
+        Expr example2 = example1.unitPropagate(x, true);
+        System.out.println("Example 2: ");
+        System.out.println("variables: " + Arrays.toString(example2.getVariables()));
+        System.out.println("variable x: true");
+        System.out.println("variable y: false");
+        System.out.println("variable z: false");
+        System.out.println(example2);
+        System.out.println("answer: " + example2.evaluate());
+        System.out.println();
+
     }
 
-    public static boolean getAnswer(Variable x, Variable y, Variable z) {
+    public static Expr exprExample1(Variable x, Variable y, Variable z) {
         Negation e1 = new Negation(y);
         Disjunction e2 = new Disjunction(e1, z);
         Disjunction e3 = new Disjunction(z, e2);
@@ -31,8 +45,6 @@ public class Main {
         Negation e8 = new Negation(z);
         Conjuction e9 = new Conjuction(e7, e8);
 
-        System.out.println("variables: " + Arrays.asList(e9.getVariables()));
-
-        return e9.evaluate();
+        return e9;
     }
 }

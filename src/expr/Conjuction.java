@@ -1,5 +1,7 @@
 package expr;
 
+import java.util.Arrays;
+
 public class Conjuction implements Expr{
     Expr e1;
     Expr e2;
@@ -54,5 +56,25 @@ public class Conjuction implements Expr{
         }
 
         return answer;
+    }
+
+    @Override
+    public Expr unitPropagate(Variable x, boolean var) {
+        e1.unitPropagate(x, var);
+        e2.unitPropagate(x, var);
+        return this;
+    }
+
+    public boolean contains(Variable[] variables, Variable x) {
+        for(Variable v: variables) {
+            if(v.name.equals(x.getName())) return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + e1 + " ∧ " + e2 + ")";
     }
 }

@@ -28,7 +28,16 @@ public class Variable implements Expr{
     }
 
     @Override
+    public Expr unitPropagate(Variable x, boolean var) {
+        if(name.equals(x.getName())) {
+            variable = var;
+        }
+
+        return this;
+    }
+
+    @Override
     public String toString() {
-        return "name: " + name + ", variable: " + variable;
+        return name;
     }
 }
