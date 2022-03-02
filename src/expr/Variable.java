@@ -3,6 +3,7 @@ package expr;
 public class Variable implements Expr{
     boolean variable;
     String name;
+    int nestedLevel = 0;
 
     public Variable(String name, boolean v) {
         this.name = name;
@@ -34,6 +35,25 @@ public class Variable implements Expr{
         }
 
         return this;
+    }
+
+    @Override
+    public void prettyPrint() {
+        for(int i = 0; i < nestedLevel; i++) {
+            System.out.print("  ");
+        }
+        System.out.print(name);
+        System.out.print("\n");
+    }
+
+    @Override
+    public int getNestedLevel() {
+        return nestedLevel;
+    }
+
+    @Override
+    public void setNestedLevel() {
+        this.nestedLevel++;
     }
 
     @Override

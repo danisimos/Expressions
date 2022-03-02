@@ -5,10 +5,13 @@ import java.util.Arrays;
 public class Conjuction implements Expr{
     Expr e1;
     Expr e2;
+    int nestedLevel = 0;
 
     public Conjuction(Expr e1, Expr e2) {
         this.e1 = e1;
         this.e2 = e2;
+        e1.setNestedLevel();
+        e2.setNestedLevel();
     }
 
     @Override
@@ -63,6 +66,29 @@ public class Conjuction implements Expr{
         e1.unitPropagate(x, var);
         e2.unitPropagate(x, var);
         return this;
+    }
+
+    @Override
+    public void prettyPrint() {
+        for(int i = 0; i < nestedLevel; i++) {
+            System.out.print("  ");
+        }
+        System.out.println("^");
+
+        e1.prettyPrint();
+        e2.prettyPrint();
+    }
+
+    @Override
+    public int getNestedLevel() {
+        return nestedLevel;
+    }
+
+    @Override
+    public void setNestedLevel() {
+        this.nestedLevel++;
+        e1.setNestedLevel();
+        e2.setNestedLevel();
     }
 
     public boolean contains(Variable[] variables, Variable x) {

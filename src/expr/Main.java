@@ -9,6 +9,7 @@ public class Main {
         Variable z   = new Variable("Z", false);
 
         Expr example1 = exprExample1(x, y, z);
+        example1.prettyPrint();
 
         System.out.println("Example 1: ");
         System.out.println("variables: " + Arrays.toString(example1.getVariables()));
@@ -28,21 +29,20 @@ public class Main {
         System.out.println(example2);
         System.out.println("answer: " + example2.evaluate());
         System.out.println();
-
     }
 
     public static Expr exprExample1(Variable x, Variable y, Variable z) {
-        Negation e1 = new Negation(y);
-        Disjunction e2 = new Disjunction(e1, z);
-        Disjunction e3 = new Disjunction(z, e2);
+        Negation e1 = new Negation(new Variable("x", x.variable));
+        Disjunction e2 = new Disjunction(e1, new Variable("z", z.variable));
+        Disjunction e3 = new Disjunction(new Variable("z", z.variable), e2);
 
-        Disjunction e4 = new Disjunction(x, y);
-        Negation e5 = new Negation(z);
+        Disjunction e4 = new Disjunction(new Variable("x", x.variable), new Variable("y", y.variable));
+        Negation e5 = new Negation(new Variable("z", z.variable));
         Disjunction e6 = new Disjunction(e4, e5);
 
         Conjuction e7 = new Conjuction(e3, e6);
 
-        Negation e8 = new Negation(z);
+        Negation e8 = new Negation(new Variable("z", z.variable));
         Conjuction e9 = new Conjuction(e7, e8);
 
         return e9;

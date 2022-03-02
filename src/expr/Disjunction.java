@@ -5,10 +5,13 @@ import java.util.Arrays;
 public class Disjunction implements Expr{
     Expr e1;
     Expr e2;
+    int nestedLevel = 0;
 
     public Disjunction(Expr e1, Expr e2) {
         this.e1 = e1;
         this.e2 = e2;
+        e1.setNestedLevel();
+        e2.setNestedLevel();
     }
 
     @Override
@@ -68,5 +71,28 @@ public class Disjunction implements Expr{
     @Override
     public String toString() {
         return "(" + e1 + " ∨ " + e2 + ")";
+    }
+
+    @Override
+    public void prettyPrint() {
+        for(int i = 0; i < nestedLevel; i++) {
+            System.out.print("  ");
+        }
+        System.out.println("v");
+
+        e1.prettyPrint();
+        e2.prettyPrint();
+    }
+
+    @Override
+    public int getNestedLevel() {
+        return nestedLevel;
+    }
+
+    @Override
+    public void setNestedLevel() {
+        this.nestedLevel++;
+        e1.setNestedLevel();
+        e2.setNestedLevel();
     }
 }
